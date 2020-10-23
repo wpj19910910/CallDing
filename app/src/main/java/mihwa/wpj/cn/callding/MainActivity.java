@@ -145,15 +145,21 @@ public class MainActivity extends AppCompatActivity {
         mUnLock = keyguardManager.newKeyguardLock("unLock");
         mUnLock.disableKeyguard();
 
-        runOnUiThread(new Runnable() {
+        timer = new Timer();
+        timer.schedule(new TimerTask() {
             @Override
             public void run() {
-                Log.i(MainActivity.class.getName(), "CallDing");
-                Intent intent1 = getPackageManager().getLaunchIntentForPackage("com.alibaba.android.rimet");
-                intent1.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(intent1);
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Log.i(MainActivity.class.getName(), "CallDing");
+                        Intent intent1 = getPackageManager().getLaunchIntentForPackage("com.alibaba.android.rimet");
+                        intent1.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent1);
+                    }
+                });
             }
-        });
+        }, 1000 * 2);
     }
 //    }
 }
